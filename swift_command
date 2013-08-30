@@ -1,0 +1,52 @@
+tail -1. Get an X-Storage-Url and X-Auth-Token: 
+
+$ curl -v -H 'X-Storage-User: test:tester' -H 'X-Storage-Pass: testing' http://127.0.0.1:8080/auth/v1.0
+
+This curl request will fetch you something like this :--
+
+* About to connect() to 127.0.0.1 port 8080 (#0)
+*   Trying 127.0.0.1... connected
+> GET /auth/v1.0 HTTP/1.1
+> User-Agent: curl/7.22.0 (i686-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3
+> Host: 127.0.0.1:8080
+> Accept: */*
+> X-Storage-User: test:tester
+> X-Storage-Pass: testing
+> 
+< HTTP/1.1 200 OK
+< X-Storage-Url: http://127.0.0.1:8080/v1/AUTH_test
+< X-Storage-Token: AUTH_tka26bd1be67784d8fb6e159fbe7a52d47
+< X-Auth-Token: AUTH_tka26bd1be67784d8fb6e159fbe7a52d47
+< Content-Length: 0
+< Date: Tue, 12 Mar 2013 10:25:53 GMT
+< 
+* Connection #0 to host 127.0.0.1 left intact
+* Closing connection #0
+
+
+2. Using native swift command for the same 
+
+$ swift stat
+
+   Account: AUTH_test
+Containers: 0
+   Objects: 0
+     Bytes: 0
+Accept-Ranges: bytes
+X-Timestamp: 1363083810.18153
+
+3. Upload an object
+swift upload cats cat.jpg 
+
+4. List an object
+
+# swift list
+cats
+
+5. Download an object
+
+# swift download cats cat.jpg
+cat.jpg [headers 3.039s, total 3.537s, 0.021s MB/s]
+
+
+Source : http://swiftstack.com/training/swift-install/
